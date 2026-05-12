@@ -6,12 +6,10 @@
   <title>Hay Buy Helper</title>
   <link rel="icon" href="logo.png">
   <link rel="apple-touch-icon" href="logo.png">
-  <link rel="manifest" href="manifest.json">	
+  <link rel="manifest" href="manifest.json">
+
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
 
     body {
       margin: 0;
@@ -34,10 +32,7 @@
       text-align: center;
     }
 
-    .header h1 {
-      margin: 0;
-      font-size: 26px;
-    }
+    .header h1 { margin: 0; font-size: 26px; }
 
     .header p {
       margin: 8px 0 0;
@@ -67,13 +62,27 @@
       font-size: 14px;
     }
 
-    input {
+    input, select {
       width: 100%;
       padding: 13px;
       border: 1px solid #d1d5db;
       border-radius: 12px;
       font-size: 18px;
       margin-bottom: 12px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 6px 0 12px;
+      font-weight: bold;
+    }
+
+    .checkbox-row input {
+      width: auto;
+      margin: 0;
+      transform: scale(1.3);
     }
 
     .summary {
@@ -111,9 +120,7 @@
       font-size: 14px;
     }
 
-    .row strong {
-      text-align: right;
-    }
+    .row strong { text-align: right; }
 
     .badge {
       display: inline-block;
@@ -147,6 +154,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="app">
     <div class="header">
@@ -157,20 +165,60 @@
 
     <div class="card">
       <label for="tons">Tonnage</label>
-      <input id="tons" type="number" value="2000" min="0" step="1" />
+      <input id="tons" type="number" value="5000" min="0" step="1" />
 
       <label for="basePrice">Base Price Per Ton</label>
       <input id="basePrice" type="number" value="200" min="0" step="1" />
+
+      <label class="checkbox-row">
+        <input id="tarpingCheck" type="checkbox" />
+        Add Tarping Cost
+      </label>
+
+      <div id="tarpingBox" style="display:none;">
+        <label for="tarpingCost">Tarping Cost</label>
+        <select id="tarpingCost">
+          <option value="4000">$4,000</option>
+          <option value="5000">$5,000</option>
+          <option value="6000">$6,000</option>
+          <option value="7000">$7,000</option>
+          <option value="8000">$8,000</option>
+          <option value="9000">$9,000</option>
+          <option value="10000">$10,000</option>
+        </select>
+      </div>
+
+      <label class="checkbox-row">
+        <input id="haulingCheck" type="checkbox" />
+        Add Hauling Cost
+      </label>
+
+      <div id="haulingBox" style="display:none;">
+        <label for="haulingRate">Hauling Cost Per Ton</label>
+        <select id="haulingRate">
+          <option value="4">$4 / ton</option>
+          <option value="5">$5 / ton</option>
+          <option value="6">$6 / ton</option>
+          <option value="7">$7 / ton</option>
+          <option value="8">$8 / ton</option>
+          <option value="9">$9 / ton</option>
+          <option value="10">$10 / ton</option>
+          <option value="11">$11 / ton</option>
+          <option value="12">$12 / ton</option>
+          <option value="13">$13 / ton</option>
+          <option value="14">$14 / ton</option>
+          <option value="15">$15 / ton</option>
+        </select>
+      </div>
     </div>
 
     <div id="bestSummary" class="card summary"></div>
-
     <div id="topThreeSummary" class="card"></div>
-
     <div id="deals"></div>
 
     <div class="note">
       Loan rule: deals above 50% upfront use 7% loan interest on the full contract amount for 12 months.
+      Tarping and hauling costs are added only when selected.
     </div>
   </div>
 
@@ -179,12 +227,12 @@
 
     const deals = [
       { name: "Base Price Deal", discount: 0, upfrontPercent: 0.20 },
-      { name: "$5 Off Deal", discount: 5, upfrontPercent: 0.40 },
-      { name: "$8 Off Deal", discount: 8, upfrontPercent: 0.50 },
-      { name: "$10 Off Deal", discount: 10, upfrontPercent: 0.60 },
-      { name: "$12 Off Deal", discount: 12, upfrontPercent: 0.70 },
-      { name: "$15 Off Deal", discount: 15, upfrontPercent: 0.80 },
-      { name: "$20 Off Deal", discount: 20, upfrontPercent: 0.90 }
+      { name: "$5 Off Deal / 40% UPFRONT", discount: 5, upfrontPercent: 0.40 },
+      { name: "$8 Off Deal / 50% UPFRONT", discount: 8, upfrontPercent: 0.50 },
+      { name: "$10 Off Deal / 60% UPFRONT", discount: 10, upfrontPercent: 0.60 },
+      { name: "$12 Off Deal / 70% UPFRONT", discount: 12, upfrontPercent: 0.70 },
+      { name: "$15 Off Deal / 80% UPFRONT", discount: 15, upfrontPercent: 0.80 },
+      { name: "$20 Off Deal / 90% UPFRONT", discount: 20, upfrontPercent: 0.90 }
     ];
 
     const money = value =>
@@ -195,37 +243,32 @@
         maximumFractionDigits: 2
       });
 
-    const number = value =>
-      value.toLocaleString("en-US", {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-      });
-
-    function calculateDeal(tons, basePrice, deal) {
+    function calculateDeal(tons, basePrice, deal, tarpingCost, haulingCost) {
       const finalPricePerTon = basePrice - deal.discount;
-      const totalContractAmount = tons * finalPricePerTon;
-      const upfrontMoney = totalContractAmount * deal.upfrontPercent;
-      const balanceUponDelivery = totalContractAmount - upfrontMoney;
+      const totalHayCost = tons * finalPricePerTon;
+      const upfrontMoney = totalHayCost * deal.upfrontPercent;
+      const balanceUponDelivery = totalHayCost - upfrontMoney;
       const loanNeeded = deal.upfrontPercent > 0.50;
 
-      // IMPORTANT LOGIC:
-      // If loan is needed, interest is calculated on the FULL CONTRACT AMOUNT.
-      // If upfront is 50% or less, no loan interest is added.
-      const loanInterest = loanNeeded ? totalContractAmount * LOAN_RATE : 0;
+      const loanInterest = loanNeeded ? totalHayCost * LOAN_RATE : 0;
 
-      const finalCostIncludingInterest = totalContractAmount + loanInterest;
+      const finalCostIncludingInterest = totalHayCost + loanInterest + tarpingCost + haulingCost;
       const effectiveCostPerTon = tons > 0 ? finalCostIncludingInterest / tons : 0;
+      const savings = tons > 0 ? (tons * basePrice) - finalCostIncludingInterest : 0;
 
       return {
         ...deal,
         finalPricePerTon,
-        totalContractAmount,
+        totalHayCost,
         upfrontMoney,
         balanceUponDelivery,
         loanNeeded,
         loanInterest,
+        tarpingCost,
+        haulingCost,
         finalCostIncludingInterest,
-        effectiveCostPerTon
+        effectiveCostPerTon,
+        savings
       };
     }
 
@@ -233,19 +276,32 @@
       const tons = Number(document.getElementById("tons").value) || 0;
       const basePrice = Number(document.getElementById("basePrice").value) || 0;
 
-      const results = deals.map(deal => calculateDeal(tons, basePrice, deal));
+      const tarpingSelected = document.getElementById("tarpingCheck").checked;
+      const tarpingCost = tarpingSelected ? Number(document.getElementById("tarpingCost").value) : 0;
+
+      const haulingSelected = document.getElementById("haulingCheck").checked;
+      const haulingRate = haulingSelected ? Number(document.getElementById("haulingRate").value) : 0;
+      const haulingCost = tons * haulingRate;
+
+      document.getElementById("tarpingBox").style.display = tarpingSelected ? "block" : "none";
+      document.getElementById("haulingBox").style.display = haulingSelected ? "block" : "none";
+
+      const results = deals.map(deal =>
+        calculateDeal(tons, basePrice, deal, tarpingCost, haulingCost)
+      );
+
       const sorted = [...results].sort((a, b) => a.effectiveCostPerTon - b.effectiveCostPerTon);
       const bestDeal = sorted[0];
 
       document.getElementById("bestSummary").innerHTML = `
         <h2>Best Deal</h2>
         <div class="deal-title">${bestDeal.name}</div>
-        <div class="row"><span>Effective Cost / Ton</span><strong>${money(bestDeal.effectiveCostPerTon)}</strong></div>
-        <div class="row"><span>Total Contract Amount</span><strong>${money(bestDeal.totalContractAmount)}</strong></div>
-        <div class="row"><span>Upfront Money Needed</span><strong>${money(bestDeal.upfrontMoney)}</strong></div>
-        <div class="row"><span>Balance Upon Delivery</span><strong>${money(bestDeal.balanceUponDelivery)}</strong></div>
-        <div class="row"><span>Loan Interest</span><strong>${money(bestDeal.loanInterest)}</strong></div>
-        <div class="row"><span>Final Cost Incl. Interest</span><strong>${money(bestDeal.finalCostIncludingInterest)}</strong></div>
+        <div class="row"><span>Best Effective Cost / Ton</span><strong>${money(bestDeal.effectiveCostPerTon)}</strong></div>
+        <div class="row"><span>Lowest Final Cost</span><strong>${money(bestDeal.finalCostIncludingInterest)}</strong></div>
+        <div class="row"><span>Cash Needed Upfront</span><strong>${money(bestDeal.upfrontMoney)}</strong></div>
+        <div class="row"><span>Tarping Cost</span><strong>${money(bestDeal.tarpingCost)}</strong></div>
+        <div class="row"><span>Hauling Cost</span><strong>${money(bestDeal.haulingCost)}</strong></div>
+        <div class="row"><span>Savings</span><strong>${money(bestDeal.savings)}</strong></div>
       `;
 
       const topThree = sorted.slice(0, 3);
@@ -260,9 +316,8 @@
         `).join("")}
       `;
 
-      document.getElementById("deals").innerHTML = sorted.map(deal => {
-        const isBest = deal.name === bestDeal.name;
-        const rank = sorted.findIndex(item => item.name === deal.name) + 1;
+      document.getElementById("deals").innerHTML = sorted.map((deal, index) => {
+        const isBest = index === 0;
 
         return `
           <div class="card deal ${isBest ? "best" : ""}">
@@ -270,16 +325,21 @@
             <span class="badge ${deal.loanNeeded ? "loan" : "cash"}">
               ${deal.loanNeeded ? "LOAN NEEDED" : "OWN CASH"}
             </span>
-            <div class="deal-title">Rank #${rank} — ${deal.name}</div>
+
+            <div class="deal-title">Rank #${index + 1} — ${deal.name}</div>
+
             <div class="row"><span>Discount / Ton</span><strong>${money(deal.discount)}</strong></div>
             <div class="row"><span>Upfront %</span><strong>${deal.upfrontPercent * 100}%</strong></div>
             <div class="row"><span>Final Price / Ton</span><strong>${money(deal.finalPricePerTon)}</strong></div>
-            <div class="row"><span>Total Contract Amount</span><strong>${money(deal.totalContractAmount)}</strong></div>
-            <div class="row"><span>Upfront Money</span><strong>${money(deal.upfrontMoney)}</strong></div>
+            <div class="row"><span>Total Hay Cost</span><strong>${money(deal.totalHayCost)}</strong></div>
+            <div class="row"><span>Upfront Money Needed</span><strong>${money(deal.upfrontMoney)}</strong></div>
             <div class="row"><span>Balance Upon Delivery</span><strong>${money(deal.balanceUponDelivery)}</strong></div>
             <div class="row"><span>Loan Interest</span><strong>${money(deal.loanInterest)}</strong></div>
-            <div class="row"><span>Final Cost</span><strong>${money(deal.finalCostIncludingInterest)}</strong></div>
-            <div class="row"><span>Effective Cost / Ton</span><strong>${money(deal.effectiveCostPerTon)}</strong></div>
+            <div class="row"><span>Tarping Cost</span><strong>${money(deal.tarpingCost)}</strong></div>
+            <div class="row"><span>Hauling Cost</span><strong>${money(deal.haulingCost)}</strong></div>
+            <div class="row"><span>Final Cost Incl. Interest</span><strong>${money(deal.finalCostIncludingInterest)}</strong></div>
+            <div class="row"><span>Cost Per Ton</span><strong>${money(deal.effectiveCostPerTon)}</strong></div>
+            <div class="row"><span>Savings</span><strong>${money(deal.savings)}</strong></div>
           </div>
         `;
       }).join("");
@@ -287,15 +347,18 @@
 
     document.getElementById("tons").addEventListener("input", render);
     document.getElementById("basePrice").addEventListener("input", render);
+    document.getElementById("tarpingCheck").addEventListener("change", render);
+    document.getElementById("tarpingCost").addEventListener("change", render);
+    document.getElementById("haulingCheck").addEventListener("change", render);
+    document.getElementById("haulingRate").addEventListener("change", render);
 
-render();
-</script>
+    render();
+  </script>
 
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./service-worker.js');
-}
-</script>
-
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js');
+    }
+  </script>
 </body>
 </html>
