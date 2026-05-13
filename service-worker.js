@@ -1,4 +1,4 @@
-const CACHE_NAME = "hay-buy-helper-v10";
+const CACHE_NAME = "hay-buy-helper-v11";
 
 self.addEventListener("install", event => {
 
