@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <title>Hay Buy Helper</title>
 
@@ -11,178 +11,209 @@
   <link rel="manifest" href="manifest.json">
 
   <style>
-    *{
-      box-sizing:border-box;
-      font-family:Arial,sans-serif;
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
+
+    body {
+      margin: 0;
+      background: #f5f7f2;
+      color: #1f2933;
     }
 
-    body{
-      margin:0;
-      background:#f5f7f2;
-      color:#1f2933;
+    .app {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 18px;
     }
 
-    .app{
-      max-width:520px;
-      margin:0 auto;
-      padding:18px;
+    .header {
+      background: #31572c;
+      color: white;
+      padding: 20px;
+      border-radius: 18px;
+      margin-bottom: 16px;
+      text-align: center;
     }
 
-    .header{
-      background:#31572c;
-      color:white;
-      padding:20px;
-      border-radius:18px;
-      margin-bottom:16px;
-      text-align:center;
+    .logo {
+      width: 90px;
+      border-radius: 18px;
+      margin-bottom: 10px;
     }
 
-    .logo{
-      width:90px;
-      border-radius:18px;
-      margin-bottom:10px;
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.08);
     }
 
-    .header h1{
-      margin:0;
-      font-size:26px;
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
     }
 
-    .header p{
-      margin-top:8px;
-      opacity:.9;
+    @media (max-width: 700px) {
+      .scenario-grid { grid-template-columns: 1fr; }
     }
 
-    .card{
-      background:white;
-      border-radius:18px;
-      padding:16px;
-      margin-bottom:14px;
-      box-shadow:0 4px 14px rgba(0,0,0,.08);
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+      font-size: 14px;
     }
 
-    label{
-      display:block;
-      font-weight:bold;
-      margin-bottom:6px;
-      font-size:14px;
+    input, select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      font-size: 18px;
+      margin-bottom: 12px;
     }
 
-    input,select{
-      width:100%;
-      padding:13px;
-      border:1px solid #d1d5db;
-      border-radius:12px;
-      font-size:18px;
-      margin-bottom:12px;
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 6px 0 12px;
+      font-weight: bold;
     }
 
-    .checkbox-row{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin:6px 0 12px;
-      font-weight:bold;
+    .checkbox-row input {
+      width: auto;
+      margin: 0;
+      transform: scale(1.2);
     }
 
-    .checkbox-row input{
-      width:auto;
-      margin:0;
-      transform:scale(1.2);
+    .summary {
+      background: #e9f5db;
+      border: 2px solid #31572c;
     }
 
-    .summary{
-      background:#e9f5db;
-      border:2px solid #31572c;
+    .scenario-title {
+      font-size: 20px;
+      color: #31572c;
+      margin-top: 0;
+      margin-bottom: 12px;
     }
 
-    .summary h2{
-      margin-top:0;
-      color:#31572c;
+    .deal { border-left: 6px solid #d1d5db; }
+
+    .deal.best {
+      border-left-color: #31572c;
+      background: #f0f8e8;
     }
 
-    .deal{
-      border-left:6px solid #d1d5db;
+    .deal.selected {
+      border-left-color: #d97706;
+      background: #fffbeb;
     }
 
-    .deal.best{
-      border-left-color:#31572c;
-      background:#f0f8e8;
+    .deal-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
     }
 
-    .deal-title{
-      font-size:18px;
-      font-weight:bold;
-      margin-bottom:8px;
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid #eef0f2;
+      padding: 7px 0;
+      font-size: 14px;
     }
 
-    .row{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      border-bottom:1px solid #eef0f2;
-      padding:7px 0;
-      font-size:14px;
+    .row strong { text-align: right; }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 8px;
     }
 
-    .badge{
-      display:inline-block;
-      padding:5px 10px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:bold;
-      margin-bottom:8px;
+    .cash {
+      background: #dbeafe;
+      color: #1e40af;
     }
 
-    .cash{
-      background:#dbeafe;
-      color:#1e40af;
+    .loan {
+      background: #fee2e2;
+      color: #991b1b;
     }
 
-    .loan{
-      background:#fee2e2;
-      color:#991b1b;
+    .best-badge {
+      background: #31572c;
+      color: white;
     }
 
-    .best-badge{
-      background:#31572c;
-      color:white;
+    .selected-badge {
+      background: #d97706;
+      color: white;
     }
 
-    .warning{
-      background:#fef3c7;
-      color:#92400e;
+    .loan-warning-box {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 12px;
+      border-radius: 12px;
+      margin-top: 10px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.4;
+      border: 1px solid #fecaca;
     }
 
-    .loan-warning-box{
-      background:#fee2e2;
-      color:#991b1b;
-      padding:12px;
-      border-radius:12px;
-      margin-top:10px;
-      margin-bottom:12px;
-      font-size:14px;
-      font-weight:bold;
-      line-height:1.4;
-      border:1px solid #fecaca;
+    .required-box {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      font-weight: bold;
+      display: none;
     }
 
-    .required-box{
-      background:#fee2e2;
-      color:#991b1b;
-      padding:12px;
-      border-radius:12px;
-      margin-bottom:12px;
-      font-size:14px;
-      font-weight:bold;
-      display:none;
+    .term-box {
+      background: #fef9c3;
+      color: #713f12;
+      padding: 10px;
+      border-radius: 12px;
+      margin: 10px 0;
+      font-size: 13px;
+      font-weight: bold;
+      line-height: 1.4;
+      border: 1px solid #fde68a;
     }
 
-    .note{
-      font-size:12px;
-      color:#6b7280;
-      text-align:center;
-      margin-top:18px;
+    .comparison-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+    }
+
+    .winner-box {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .note {
+      font-size: 12px;
+      color: #6b7280;
+      text-align: center;
+      margin-top: 18px;
     }
   </style>
 </head>
@@ -192,426 +223,511 @@
 <div class="app">
 
   <div class="header">
-    <img src="logo.png" class="logo">
+    <img src="logo.png" class="logo" alt="Hay Buy Helper Logo">
     <h1>Hay Buy Helper</h1>
-    <p>Compare hay purchase deals instantly</p>
+    <p>Side-by-side hay purchase comparison</p>
   </div>
 
-  <div class="card">
+  <input id="userName" type="text" value="CASON" style="display:none;" />
 
-        <input
-  id="userName"
-  type="text"
-  value="CASON"
-  style="display:none;"
-/>
+  <div class="scenario-grid">
 
-    <label for="bankBalance">
-      Beginning Bank Balance (Required)
-    </label>
+    <div class="card">
+      <h2 class="scenario-title">Scenario A</h2>
 
-    <input
-      id="bankBalance"
-      type="number"
-      value=""
-      min="0"
-      step="1000"
-      placeholder="Please put amount in order to continue"
-    />
+      <label for="selectedDealA">Select Deal Term</label>
+      <select id="selectedDealA">
+        <option value="auto">Auto Best Deal</option>
+        <option value="0.20">20% UPFRONT</option>
+        <option value="0.40">40% UPFRONT</option>
+        <option value="0.50">50% UPFRONT</option>
+        <option value="0.60">60% UPFRONT</option>
+        <option value="0.70">70% UPFRONT</option>
+        <option value="0.80">80% UPFRONT</option>
+        <option value="0.90">90% UPFRONT</option>
+      </select>
 
-    <div id="bankBalanceWarning" class="required-box">
-      ⚠️ BEGINNING BANK BALANCE REQUIRED.
-      PLEASE PUT AMOUNT IN ORDER TO CONTINUE.
+      <label for="bankBalanceA">Beginning Bank Balance Required</label>
+      <input id="bankBalanceA" type="number" value="" min="0" step="1000" placeholder="Enter bank balance">
+
+      <div id="bankBalanceWarningA" class="required-box">
+        ⚠️ BEGINNING BANK BALANCE REQUIRED.
+      </div>
+
+      <label for="tonsA">Tonnage</label>
+      <input id="tonsA" type="number" value="5000" min="0" step="1">
+
+      <label for="basePriceA">Base Price Per Ton</label>
+      <input id="basePriceA" type="number" value="200" min="0" step="1">
+
+      <label class="checkbox-row">
+        <input id="tarpingCheckA" type="checkbox">
+        Add Tarping Cost
+      </label>
+
+      <div id="tarpingBoxA" style="display:none;">
+        <label for="tarpingRateA">Tarping Cost Per Ton</label>
+        <select id="tarpingRateA">
+          <option value="4">$4 / ton</option>
+          <option value="5">$5 / ton</option>
+          <option value="6">$6 / ton</option>
+          <option value="7">$7 / ton</option>
+          <option value="8">$8 / ton</option>
+          <option value="9">$9 / ton</option>
+          <option value="10">$10 / ton</option>
+          <option value="11">$11 / ton</option>
+          <option value="12">$12 / ton</option>
+          <option value="13">$13 / ton</option>
+          <option value="14">$14 / ton</option>
+          <option value="15">$15 / ton</option>
+        </select>
+      </div>
+
+      <label class="checkbox-row">
+        <input id="haulingCheckA" type="checkbox">
+        Add Hauling Cost
+      </label>
+
+      <div id="haulingBoxA" style="display:none;">
+        <label for="haulingRateA">Hauling Cost Per Ton</label>
+        <select id="haulingRateA">
+          <option value="4">$4 / ton</option>
+          <option value="5">$5 / ton</option>
+          <option value="6">$6 / ton</option>
+          <option value="7">$7 / ton</option>
+          <option value="8">$8 / ton</option>
+          <option value="9">$9 / ton</option>
+          <option value="10">$10 / ton</option>
+          <option value="11">$11 / ton</option>
+          <option value="12">$12 / ton</option>
+          <option value="13">$13 / ton</option>
+          <option value="14">$14 / ton</option>
+          <option value="15">$15 / ton</option>
+        </select>
+      </div>
     </div>
 
-    <label for="tons">Tonnage</label>
-    <input id="tons" type="number" value="5000">
+    <div class="card">
+      <h2 class="scenario-title">Scenario B</h2>
 
-    <label for="basePrice">Base Price Per Ton</label>
-    <input id="basePrice" type="number" value="200">
-
-    <label class="checkbox-row">
-      <input id="tarpingCheck" type="checkbox">
-      Add Tarping Cost
-    </label>
-
-    <div id="tarpingBox" style="display:none;">
-      <label for="tarpingCost">Tarping Cost</label>
-
-      <select id="tarpingCost">
-        <option value="4000">$4,000</option>
-        <option value="5000">$5,000</option>
-        <option value="6000">$6,000</option>
-        <option value="7000">$7,000</option>
-        <option value="8000">$8,000</option>
-        <option value="9000">$9,000</option>
-        <option value="10000">$10,000</option>
+      <label for="selectedDealB">Select Deal Term</label>
+      <select id="selectedDealB">
+        <option value="auto">Auto Best Deal</option>
+        <option value="0.20">20% UPFRONT</option>
+        <option value="0.40">40% UPFRONT</option>
+        <option value="0.50">50% UPFRONT</option>
+        <option value="0.60">60% UPFRONT</option>
+        <option value="0.70">70% UPFRONT</option>
+        <option value="0.80">80% UPFRONT</option>
+        <option value="0.90">90% UPFRONT</option>
       </select>
-    </div>
 
-    <label class="checkbox-row">
-      <input id="haulingCheck" type="checkbox">
-      Add Hauling Cost
-    </label>
+      <label for="bankBalanceB">Beginning Bank Balance Required</label>
+      <input id="bankBalanceB" type="number" value="" min="0" step="1000" placeholder="Enter bank balance">
 
-    <div id="haulingBox" style="display:none;">
-      <label for="haulingRate">Hauling Cost Per Ton</label>
+      <div id="bankBalanceWarningB" class="required-box">
+        ⚠️ BEGINNING BANK BALANCE REQUIRED.
+      </div>
 
-      <select id="haulingRate">
-        <option value="4">$4 / ton</option>
-        <option value="5">$5 / ton</option>
-        <option value="6">$6 / ton</option>
-        <option value="7">$7 / ton</option>
-        <option value="8">$8 / ton</option>
-        <option value="9">$9 / ton</option>
-        <option value="10">$10 / ton</option>
-        <option value="11">$11 / ton</option>
-        <option value="12">$12 / ton</option>
-        <option value="13">$13 / ton</option>
-        <option value="14">$14 / ton</option>
-        <option value="15">$15 / ton</option>
-      </select>
+      <label for="tonsB">Tonnage</label>
+      <input id="tonsB" type="number" value="5000" min="0" step="1">
+
+      <label for="basePriceB">Base Price Per Ton</label>
+      <input id="basePriceB" type="number" value="200" min="0" step="1">
+
+      <label class="checkbox-row">
+        <input id="tarpingCheckB" type="checkbox">
+        Add Tarping Cost
+      </label>
+
+      <div id="tarpingBoxB" style="display:none;">
+        <label for="tarpingRateB">Tarping Cost Per Ton</label>
+        <select id="tarpingRateB">
+          <option value="4">$4 / ton</option>
+          <option value="5">$5 / ton</option>
+          <option value="6">$6 / ton</option>
+          <option value="7">$7 / ton</option>
+          <option value="8">$8 / ton</option>
+          <option value="9">$9 / ton</option>
+          <option value="10">$10 / ton</option>
+          <option value="11">$11 / ton</option>
+          <option value="12">$12 / ton</option>
+          <option value="13">$13 / ton</option>
+          <option value="14">$14 / ton</option>
+          <option value="15">$15 / ton</option>
+        </select>
+      </div>
+
+      <label class="checkbox-row">
+        <input id="haulingCheckB" type="checkbox">
+        Add Hauling Cost
+      </label>
+
+      <div id="haulingBoxB" style="display:none;">
+        <label for="haulingRateB">Hauling Cost Per Ton</label>
+        <select id="haulingRateB">
+          <option value="4">$4 / ton</option>
+          <option value="5">$5 / ton</option>
+          <option value="6">$6 / ton</option>
+          <option value="7">$7 / ton</option>
+          <option value="8">$8 / ton</option>
+          <option value="9">$9 / ton</option>
+          <option value="10">$10 / ton</option>
+          <option value="11">$11 / ton</option>
+          <option value="12">$12 / ton</option>
+          <option value="13">$13 / ton</option>
+          <option value="14">$14 / ton</option>
+          <option value="15">$15 / ton</option>
+        </select>
+      </div>
     </div>
 
   </div>
 
-  <div id="bestSummary" class="card summary"></div>
+  <div id="winnerSummary" class="card comparison-box"></div>
 
-  <div id="topThreeSummary" class="card"></div>
+  <div class="scenario-grid">
+    <div id="selectedSummaryA" class="card summary"></div>
+    <div id="selectedSummaryB" class="card summary"></div>
+  </div>
 
-  <div id="deals"></div>
+  <div class="scenario-grid">
+    <div id="comparisonSummaryA" class="card comparison-box"></div>
+    <div id="comparisonSummaryB" class="card comparison-box"></div>
+  </div>
+
+  <div class="scenario-grid">
+    <div id="dealsA"></div>
+    <div id="dealsB"></div>
+  </div>
 
   <div class="note">
-    Loan applies if upfront is above 50% OR
-    bank balance falls below $250,000.
+    Savings = Original base price total minus final cost after loan interest, tarping, and hauling.
   </div>
 
 </div>
 
 <script>
-
 const LOAN_RATE = 0.07;
-const MIN_BANK_BALANCE = 250000;
 
 const deals = [
-  { name:"Base Price Deal", discount:0, upfrontPercent:0.20 },
-  { name:"$5 Off Deal / 40% UPFRONT", discount:5, upfrontPercent:0.40 },
-  { name:"$8 Off Deal / 50% UPFRONT", discount:8, upfrontPercent:0.50 },
-  { name:"$10 Off Deal / 60% UPFRONT", discount:10, upfrontPercent:0.60 },
-  { name:"$12 Off Deal / 70% UPFRONT", discount:12, upfrontPercent:0.70 },
-  { name:"$15 Off Deal / 80% UPFRONT", discount:15, upfrontPercent:0.80 },
-  { name:"$20 Off Deal / 90% UPFRONT", discount:20, upfrontPercent:0.90 }
+  { name:"20% UPFRONT", discount:0, upfrontPercent:0.20 },
+  { name:"40% UPFRONT", discount:5, upfrontPercent:0.40 },
+  { name:"50% UPFRONT", discount:8, upfrontPercent:0.50 },
+  { name:"60% UPFRONT", discount:10, upfrontPercent:0.60 },
+  { name:"70% UPFRONT", discount:12, upfrontPercent:0.70 },
+  { name:"80% UPFRONT", discount:15, upfrontPercent:0.80 },
+  { name:"90% UPFRONT", discount:20, upfrontPercent:0.90 }
 ];
 
+const paymentTerms = {
+  0.90:"90% upfront, balance upon delivery.",
+  0.80:"80% upfront, balance upon delivery.",
+  0.70:"70% upfront, 20% January, balance upon delivery.",
+  0.60:"60% upfront, 20% January, balance upon delivery.",
+  0.50:"50% upfront, 30% January, balance upon delivery.",
+  0.40:"40% upfront, 40% January, balance upon delivery.",
+  0.20:"20% upfront, 20% in 30 days, 20% in 60 days, 20% in 90 days, balance upon delivery."
+};
+
 const money = value =>
-  value.toLocaleString("en-US",{
+  value.toLocaleString("en-US", {
     style:"currency",
     currency:"USD",
-    minimumFractionDigits:2
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
   });
 
-function calculateDeal(
-  tons,
-  basePrice,
-  deal,
-  tarpingCost,
-  haulingCost,
-  bankBalance
-){
-
+function calculateDeal(tons, basePrice, deal, tarpingCost, haulingCost, bankBalance) {
   const finalPricePerTon = basePrice - deal.discount;
-
   const totalHayCost = tons * finalPricePerTon;
+  const upfrontMoney = totalHayCost * deal.upfrontPercent;
+  const balanceUponDelivery = totalHayCost - upfrontMoney;
 
-  const upfrontMoney =
-    totalHayCost * deal.upfrontPercent;
+  const cashUsed = Math.min(bankBalance, upfrontMoney);
+  const loanRequired = Math.max(0, upfrontMoney - bankBalance);
+  const bankBalanceAfterUpfront = bankBalance - cashUsed;
 
-  const balanceUponDelivery =
-    totalHayCost - upfrontMoney;
+  const interestMonths = deal.upfrontPercent === 0.20 ? 9 : 12;
+  const loanInterest = loanRequired * LOAN_RATE * (interestMonths / 12);
 
-  const bankBalanceAfterUpfront =
-    bankBalance - upfrontMoney;
+  const finalCost = totalHayCost + loanInterest + tarpingCost + haulingCost;
+  const costPerTon = tons > 0 ? finalCost / tons : 0;
 
-  const loanNeededByDeal =
-    deal.upfrontPercent > 0.50;
-
-  const loanNeededByBank =
-    bankBalance < MIN_BANK_BALANCE ||
-    bankBalanceAfterUpfront < MIN_BANK_BALANCE;
-
-  const loanNeeded =
-    loanNeededByDeal || loanNeededByBank;
-
-  const loanInterest =
-    loanNeeded
-      ? totalHayCost * LOAN_RATE
-      : 0;
-
-  const finalCost =
-    totalHayCost +
-    loanInterest +
-    tarpingCost +
-    haulingCost;
-
-  const costPerTon =
-    finalCost / tons;
+  const originalCostWithoutDeal = tons * basePrice;
+  const savings = originalCostWithoutDeal - finalCost;
 
   return {
     ...deal,
+    paymentTerm: paymentTerms[deal.upfrontPercent],
+    finalPricePerTon,
     totalHayCost,
     upfrontMoney,
     balanceUponDelivery,
+    cashUsed,
+    loanRequired,
     bankBalanceAfterUpfront,
-    loanNeeded,
+    interestMonths,
     loanInterest,
     tarpingCost,
     haulingCost,
     finalCost,
-    costPerTon
+    costPerTon,
+    originalCostWithoutDeal,
+    savings,
+    loanNeeded: loanRequired > 0
   };
 }
 
-function render(){
+function getScenario(letter) {
+  const bankBalanceInput = document.getElementById(`bankBalance${letter}`).value;
+  const bankBalance = Number(bankBalanceInput);
+  const warning = document.getElementById(`bankBalanceWarning${letter}`);
 
-  const userName =
-    document.getElementById("userName").value || "You";
-
-  const bankBalanceInput =
-    document.getElementById("bankBalance").value;
-
-  const bankBalance =
-    Number(bankBalanceInput);
-
-  if(!bankBalanceInput || bankBalance <= 0){
-
-    document.getElementById(
-      "bankBalanceWarning"
-    ).style.display = "block";
-
-    document.getElementById(
-      "bestSummary"
-    ).innerHTML = "";
-
-    document.getElementById(
-      "topThreeSummary"
-    ).innerHTML = "";
-
-    document.getElementById(
-      "deals"
-    ).innerHTML = "";
-
-    return;
+  if (!bankBalanceInput || bankBalance <= 0) {
+    warning.style.display = "block";
+    return null;
   }
 
-  document.getElementById(
-    "bankBalanceWarning"
-  ).style.display = "none";
+  warning.style.display = "none";
 
-  const tons =
-    Number(document.getElementById("tons").value);
+  const tons = Number(document.getElementById(`tons${letter}`).value) || 0;
+  const basePrice = Number(document.getElementById(`basePrice${letter}`).value) || 0;
 
-  const basePrice =
-    Number(document.getElementById("basePrice").value);
+  const tarpingSelected = document.getElementById(`tarpingCheck${letter}`).checked;
+  const tarpingRate = tarpingSelected ? Number(document.getElementById(`tarpingRate${letter}`).value) : 0;
+  const tarpingCost = tons * tarpingRate;
 
-  const tarpingSelected =
-    document.getElementById("tarpingCheck").checked;
+  const haulingSelected = document.getElementById(`haulingCheck${letter}`).checked;
+  const haulingRate = haulingSelected ? Number(document.getElementById(`haulingRate${letter}`).value) : 0;
+  const haulingCost = tons * haulingRate;
 
-  const tarpingCost =
-    tarpingSelected
-      ? Number(document.getElementById("tarpingCost").value)
-      : 0;
+  document.getElementById(`tarpingBox${letter}`).style.display = tarpingSelected ? "block" : "none";
+  document.getElementById(`haulingBox${letter}`).style.display = haulingSelected ? "block" : "none";
 
-  const haulingSelected =
-    document.getElementById("haulingCheck").checked;
+  const results = deals.map(deal =>
+    calculateDeal(tons, basePrice, deal, tarpingCost, haulingCost, bankBalance)
+  );
 
-  const haulingRate =
-    haulingSelected
-      ? Number(document.getElementById("haulingRate").value)
-      : 0;
+  const sorted = [...results].sort((a,b) => a.costPerTon - b.costPerTon);
 
-  const haulingCost =
-    tons * haulingRate;
+  const selectedDealValue = document.getElementById(`selectedDeal${letter}`).value;
 
-  document.getElementById("tarpingBox").style.display =
-    tarpingSelected ? "block" : "none";
+  let selectedDeal;
 
-  document.getElementById("haulingBox").style.display =
-    haulingSelected ? "block" : "none";
+  if (selectedDealValue === "auto") {
+    selectedDeal = sorted[0];
+  } else {
+    selectedDeal = results.find(deal => deal.upfrontPercent === Number(selectedDealValue));
+  }
 
-  const results =
-    deals.map(deal =>
-      calculateDeal(
-        tons,
-        basePrice,
-        deal,
-        tarpingCost,
-        haulingCost,
-        bankBalance
-      )
-    );
-
-  const sorted =
-    [...results].sort(
-      (a,b) => a.costPerTon - b.costPerTon
-    );
-
-  const bestDeal = sorted[0];
-
-  document.getElementById("bestSummary").innerHTML = `
-
-    <h2>Best Deal</h2>
-
-    <div class="deal-title">
-      ${bestDeal.name}
-    </div>
-
-    ${
-      bestDeal.loanNeeded
-      ? `
-        <div class="loan-warning-box">
-          ⚠️ ${userName},
-          YOU DON'T HAVE ENOUGH CASH AVAILABLE.
-          THIS DEAL REQUIRES A LOAN AND
-          WILL PUT YOU DEEP IN THE LINE.
-        </div>
-      `
-      : ""
-    }
-
-    <div class="row">
-      <span>Effective Cost / Ton</span>
-      <strong>${money(bestDeal.costPerTon)}</strong>
-    </div>
-
-    <div class="row">
-      <span>Final Cost</span>
-      <strong>${money(bestDeal.finalCost)}</strong>
-    </div>
-
-  `;
-
-  document.getElementById("topThreeSummary").innerHTML = `
-
-    <h2>Top 3 Deals</h2>
-
-    ${
-      sorted.slice(0,3).map((deal,index)=>`
-
-        <div class="row">
-          <span>#${index+1} ${deal.name}</span>
-          <strong>${money(deal.costPerTon)} / ton</strong>
-        </div>
-
-      `).join("")
-    }
-
-  `;
-
-  document.getElementById("deals").innerHTML =
-
-    sorted.map((deal,index)=>`
-
-      <div class="card deal ${index===0 ? "best" : ""}">
-
-        ${
-          index===0
-          ? `<span class="badge best-badge">BEST DEAL</span><br>`
-          : ""
-        }
-
-        <span class="badge ${deal.loanNeeded ? "loan":"cash"}">
-          ${deal.loanNeeded ? "LOAN NEEDED":"OWN CASH"}
-        </span>
-
-        ${
-          deal.loanNeeded
-          ? `
-            <div class="loan-warning-box">
-              ⚠️ ${userName},
-              YOU DON'T HAVE ENOUGH CASH AVAILABLE.
-              THIS DEAL REQUIRES A LOAN AND
-              WILL PUT YOU DEEP IN THE LINE.
-            </div>
-          `
-          : ""
-        }
-
-        <div class="deal-title">
-          Rank #${index+1} — ${deal.name}
-        </div>
-
-        <div class="row">
-          <span>Total Hay Cost</span>
-          <strong>${money(deal.totalHayCost)}</strong>
-        </div>
-
-        <div class="row">
-          <span>Upfront Money</span>
-          <strong>${money(deal.upfrontMoney)}</strong>
-        </div>
-
-        <div class="row">
-          <span>Bank Balance After Upfront</span>
-          <strong>${money(deal.bankBalanceAfterUpfront)}</strong>
-        </div>
-
-        <div class="row">
-          <span>Loan Interest</span>
-          <strong>${money(deal.loanInterest)}</strong>
-        </div>
-
-        <div class="row">
-          <span>Tarping Cost</span>
-          <strong>${money(deal.tarpingCost)}</strong>
-        </div>
-
-        <div class="row">
-          <span>Hauling Cost</span>
-          <strong>${money(deal.haulingCost)}</strong>
-        </div>
-
-        <div class="row">
-          <span>Final Cost</span>
-          <strong>${money(deal.finalCost)}</strong>
-        </div>
-
-        <div class="row">
-          <span>Cost Per Ton</span>
-          <strong>${money(deal.costPerTon)}</strong>
-        </div>
-
-      </div>
-
-    `).join("");
-
+  return {
+    letter,
+    tons,
+    basePrice,
+    bankBalance,
+    tarpingRate,
+    tarpingCost,
+    haulingRate,
+    haulingCost,
+    sorted,
+    best: sorted[0],
+    selectedDeal,
+    selectedDealValue
+  };
 }
 
-document.getElementById("userName")
-  .addEventListener("input",render);
+function renderSelectedSummary(scenario) {
+  const userName = document.getElementById("userName").value || "You";
+  const deal = scenario.selectedDeal;
+  const isAuto = scenario.selectedDealValue === "auto";
 
-document.getElementById("bankBalance")
-  .addEventListener("input",render);
+  return `
+    <h2>Scenario ${scenario.letter} ${isAuto ? "Auto Selected" : "Selected Deal"}</h2>
 
-document.getElementById("tons")
-  .addEventListener("input",render);
+    <div class="deal-title">${deal.name}</div>
 
-document.getElementById("basePrice")
-  .addEventListener("input",render);
+    ${deal.loanNeeded ? `
+      <div class="loan-warning-box">
+        ⚠️ ${userName}, YOU DON'T HAVE ENOUGH CASH TO PAY FOR THIS DEAL.
+        ${money(deal.loanRequired)} LOAN REQUIRED.
+      </div>
+    ` : ""}
 
-document.getElementById("tarpingCheck")
-  .addEventListener("change",render);
+    <div class="term-box">Payment Terms: ${deal.paymentTerm}</div>
 
-document.getElementById("tarpingCost")
-  .addEventListener("change",render);
+    <div class="row"><span>Cost / Ton</span><strong>${money(deal.costPerTon)}</strong></div>
+    <div class="row"><span>Final Cost</span><strong>${money(deal.finalCost)}</strong></div>
+    <div class="row"><span>Original Cost Before Deal</span><strong>${money(deal.originalCostWithoutDeal)}</strong></div>
+    <div class="row"><span>Savings After All Charges</span><strong>${money(deal.savings)}</strong></div>
+    <div class="row"><span>Loan Required</span><strong>${money(deal.loanRequired)}</strong></div>
+    <div class="row"><span>Loan Interest</span><strong>${money(deal.loanInterest)}</strong></div>
+    <div class="row"><span>Tarping Cost</span><strong>${money(deal.tarpingCost)}</strong></div>
+    <div class="row"><span>Hauling Cost</span><strong>${money(deal.haulingCost)}</strong></div>
+  `;
+}
 
-document.getElementById("haulingCheck")
-  .addEventListener("change",render);
+function renderComparisonSummary(scenario) {
+  return `
+    <h2>Scenario ${scenario.letter} Full Ranking</h2>
 
-document.getElementById("haulingRate")
-  .addEventListener("change",render);
+    ${scenario.sorted.map((deal, index) => `
+      <div class="row">
+        <span>#${index + 1} ${deal.name}</span>
+        <strong>${money(deal.costPerTon)} / ton</strong>
+      </div>
+    `).join("")}
+  `;
+}
+
+function renderDeals(scenario, globalBest) {
+  const userName = document.getElementById("userName").value || "You";
+
+  return scenario.sorted.map((deal, index) => {
+    const isBest =
+      globalBest &&
+      globalBest.scenarioLetter === scenario.letter &&
+      globalBest.name === deal.name;
+
+    const isSelected = deal.name === scenario.selectedDeal.name;
+
+    return `
+      <div class="card deal ${isBest ? "best" : ""} ${isSelected ? "selected" : ""}">
+
+        ${isBest ? `<span class="badge best-badge">BEST DEAL OVERALL</span><br>` : ""}
+        ${isSelected ? `<span class="badge selected-badge">SELECTED DEAL</span><br>` : ""}
+
+        <span class="badge ${deal.loanNeeded ? "loan" : "cash"}">
+          ${deal.loanNeeded ? "LOAN NEEDED" : "OWN CASH"}
+        </span>
+
+        ${deal.loanNeeded ? `
+          <div class="loan-warning-box">
+            ⚠️ ${userName}, YOU DON'T HAVE ENOUGH CASH TO PAY FOR THIS DEAL.
+            ${money(deal.loanRequired)} LOAN REQUIRED.
+          </div>
+        ` : ""}
+
+        <div class="deal-title">Rank #${index + 1} — ${deal.name}</div>
+
+        <div class="term-box">Payment Terms: ${deal.paymentTerm}</div>
+
+        <div class="row"><span>Discount / Ton</span><strong>${money(deal.discount)}</strong></div>
+        <div class="row"><span>Final Price / Ton</span><strong>${money(deal.finalPricePerTon)}</strong></div>
+        <div class="row"><span>Total Hay Cost</span><strong>${money(deal.totalHayCost)}</strong></div>
+        <div class="row"><span>Upfront Money Required</span><strong>${money(deal.upfrontMoney)}</strong></div>
+        <div class="row"><span>Cash Used From Bank</span><strong>${money(deal.cashUsed)}</strong></div>
+        <div class="row"><span>Loan Required</span><strong>${money(deal.loanRequired)}</strong></div>
+        <div class="row"><span>Bank Balance After Upfront</span><strong>${money(deal.bankBalanceAfterUpfront)}</strong></div>
+        <div class="row"><span>Balance Upon Delivery</span><strong>${money(deal.balanceUponDelivery)}</strong></div>
+        <div class="row"><span>Interest Months</span><strong>${deal.interestMonths}</strong></div>
+        <div class="row"><span>Loan Interest</span><strong>${money(deal.loanInterest)}</strong></div>
+        <div class="row"><span>Tarping Cost</span><strong>${money(deal.tarpingCost)}</strong></div>
+        <div class="row"><span>Hauling Cost</span><strong>${money(deal.haulingCost)}</strong></div>
+        <div class="row"><span>Final Cost</span><strong>${money(deal.finalCost)}</strong></div>
+        <div class="row"><span>Cost Per Ton</span><strong>${money(deal.costPerTon)}</strong></div>
+        <div class="row"><span>Original Cost Before Deal</span><strong>${money(deal.originalCostWithoutDeal)}</strong></div>
+        <div class="row"><span>Savings After All Charges</span><strong>${money(deal.savings)}</strong></div>
+
+      </div>
+    `;
+  }).join("");
+}
+
+function renderWinner(scenarioA, scenarioB, globalBest) {
+  if (!scenarioA || !scenarioB || !globalBest) {
+    return `
+      <h2>Overall Winner</h2>
+      <div class="loan-warning-box">
+        Enter beginning bank balance for both scenarios to compare.
+      </div>
+    `;
+  }
+
+  const a = scenarioA.selectedDeal;
+  const b = scenarioB.selectedDeal;
+  const difference = Math.abs(a.costPerTon - b.costPerTon);
+
+  let selectedWinnerText = "";
+
+  if (a.costPerTon < b.costPerTon) {
+    selectedWinnerText = `Scenario A selected deal is better by ${money(difference)} per ton.`;
+  } else if (b.costPerTon < a.costPerTon) {
+    selectedWinnerText = `Scenario B selected deal is better by ${money(difference)} per ton.`;
+  } else {
+    selectedWinnerText = "Both selected deals have the same effective cost per ton.";
+  }
+
+  return `
+    <h2>Overall Winner</h2>
+
+    <div class="winner-box">
+      BEST DEAL OVERALL: Scenario ${globalBest.scenarioLetter} — ${globalBest.name}
+      at ${money(globalBest.costPerTon)} / ton.
+    </div>
+
+    <div class="winner-box">
+      ${selectedWinnerText}
+    </div>
+
+    <div class="row"><span>Overall Winner Final Cost</span><strong>${money(globalBest.finalCost)}</strong></div>
+    <div class="row"><span>Overall Winner Savings</span><strong>${money(globalBest.savings)}</strong></div>
+    <div class="row"><span>Overall Winner Loan Required</span><strong>${money(globalBest.loanRequired)}</strong></div>
+
+    <div class="row"><span>Scenario A Selected Deal</span><strong>${a.name}</strong></div>
+    <div class="row"><span>Scenario A Selected Cost / Ton</span><strong>${money(a.costPerTon)}</strong></div>
+
+    <div class="row"><span>Scenario B Selected Deal</span><strong>${b.name}</strong></div>
+    <div class="row"><span>Scenario B Selected Cost / Ton</span><strong>${money(b.costPerTon)}</strong></div>
+  `;
+}
+
+function render() {
+  const scenarioA = getScenario("A");
+  const scenarioB = getScenario("B");
+
+  let globalBest = null;
+
+  if (scenarioA && scenarioB) {
+    const allDeals = [
+      ...scenarioA.sorted.map(deal => ({ ...deal, scenarioLetter: "A" })),
+      ...scenarioB.sorted.map(deal => ({ ...deal, scenarioLetter: "B" }))
+    ];
+
+    globalBest = allDeals.sort((a,b) => a.costPerTon - b.costPerTon)[0];
+  }
+
+  document.getElementById("winnerSummary").innerHTML =
+    renderWinner(scenarioA, scenarioB, globalBest);
+
+  document.getElementById("selectedSummaryA").innerHTML =
+    scenarioA ? renderSelectedSummary(scenarioA) : "";
+
+  document.getElementById("selectedSummaryB").innerHTML =
+    scenarioB ? renderSelectedSummary(scenarioB) : "";
+
+  document.getElementById("comparisonSummaryA").innerHTML =
+    scenarioA ? renderComparisonSummary(scenarioA) : "";
+
+  document.getElementById("comparisonSummaryB").innerHTML =
+    scenarioB ? renderComparisonSummary(scenarioB) : "";
+
+  document.getElementById("dealsA").innerHTML =
+    scenarioA ? renderDeals(scenarioA, globalBest) : "";
+
+  document.getElementById("dealsB").innerHTML =
+    scenarioB ? renderDeals(scenarioB, globalBest) : "";
+}
+
+[
+  "selectedDealA", "bankBalanceA", "tonsA", "basePriceA", "tarpingCheckA", "tarpingRateA", "haulingCheckA", "haulingRateA",
+  "selectedDealB", "bankBalanceB", "tonsB", "basePriceB", "tarpingCheckB", "tarpingRateB", "haulingCheckB", "haulingRateB"
+].forEach(id => {
+  document.getElementById(id).addEventListener("input", render);
+  document.getElementById(id).addEventListener("change", render);
+});
 
 render();
-
 </script>
 
 <script>
