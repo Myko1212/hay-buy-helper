@@ -1,7 +1,6 @@
-const CACHE_NAME = "hay-buy-helper-v11";
+const CACHE_NAME = "hay-buy-helper-v20";
 
 self.addEventListener("install", event => {
-
   self.skipWaiting();
 
   event.waitUntil(
@@ -17,38 +16,23 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("activate", event => {
-
   event.waitUntil(
-
     caches.keys().then(cacheNames => {
-
       return Promise.all(
-
         cacheNames.map(cache => {
-
           if (cache !== CACHE_NAME) {
             return caches.delete(cache);
           }
-
         })
-
       );
-
     })
-
   );
 
   self.clients.claim();
-
 });
 
 self.addEventListener("fetch", event => {
-
   event.respondWith(
-
-    fetch(event.request)
-      .catch(() => caches.match(event.request))
-
+    fetch(event.request).catch(() => caches.match(event.request))
   );
-
 });
