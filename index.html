@@ -3,362 +3,622 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Hay Buy Helper</title>
+
   <link rel="icon" href="logo.png">
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="manifest.json">
 
   <style>
-    * { box-sizing: border-box; font-family: Arial, sans-serif; }
-
-    body {
-      margin: 0;
-      background: #f5f7f2;
-      color: #1f2933;
+    *{
+      box-sizing:border-box;
+      font-family:Arial,sans-serif;
     }
 
-    .app {
-      max-width: 520px;
-      margin: 0 auto;
-      padding: 18px;
+    body{
+      margin:0;
+      background:#f5f7f2;
+      color:#1f2933;
     }
 
-    .header {
-      background: #31572c;
-      color: white;
-      padding: 20px;
-      border-radius: 18px;
-      margin-bottom: 16px;
-      text-align: center;
+    .app{
+      max-width:520px;
+      margin:0 auto;
+      padding:18px;
     }
 
-    .header h1 { margin: 0; font-size: 26px; }
-
-    .header p {
-      margin: 8px 0 0;
-      font-size: 14px;
-      opacity: 0.9;
+    .header{
+      background:#31572c;
+      color:white;
+      padding:20px;
+      border-radius:18px;
+      margin-bottom:16px;
+      text-align:center;
     }
 
-    .logo {
-      width: 90px;
-      height: auto;
-      margin-bottom: 10px;
-      border-radius: 18px;
+    .logo{
+      width:90px;
+      border-radius:18px;
+      margin-bottom:10px;
     }
 
-    .card {
-      background: white;
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    .header h1{
+      margin:0;
+      font-size:26px;
     }
 
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 6px;
-      font-size: 14px;
+    .header p{
+      margin-top:8px;
+      opacity:.9;
     }
 
-    input, select {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #d1d5db;
-      border-radius: 12px;
-      font-size: 18px;
-      margin-bottom: 12px;
+    .card{
+      background:white;
+      border-radius:18px;
+      padding:16px;
+      margin-bottom:14px;
+      box-shadow:0 4px 14px rgba(0,0,0,.08);
     }
 
-    .checkbox-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 6px 0 12px;
-      font-weight: bold;
+    label{
+      display:block;
+      font-weight:bold;
+      margin-bottom:6px;
+      font-size:14px;
     }
 
-    .checkbox-row input {
-      width: auto;
-      margin: 0;
-      transform: scale(1.3);
+    input,select{
+      width:100%;
+      padding:13px;
+      border:1px solid #d1d5db;
+      border-radius:12px;
+      font-size:18px;
+      margin-bottom:12px;
     }
 
-    .summary {
-      background: #e9f5db;
-      border: 2px solid #31572c;
+    .checkbox-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:6px 0 12px;
+      font-weight:bold;
     }
 
-    .summary h2 {
-      margin-top: 0;
-      font-size: 20px;
-      color: #31572c;
+    .checkbox-row input{
+      width:auto;
+      margin:0;
+      transform:scale(1.2);
     }
 
-    .deal {
-      border-left: 6px solid #d1d5db;
+    .summary{
+      background:#e9f5db;
+      border:2px solid #31572c;
     }
 
-    .deal.best {
-      border-left-color: #31572c;
-      background: #f0f8e8;
+    .summary h2{
+      margin-top:0;
+      color:#31572c;
     }
 
-    .deal-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 8px;
+    .deal{
+      border-left:6px solid #d1d5db;
     }
 
-    .row {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      border-bottom: 1px solid #eef0f2;
-      padding: 7px 0;
-      font-size: 14px;
+    .deal.best{
+      border-left-color:#31572c;
+      background:#f0f8e8;
     }
 
-    .row strong { text-align: right; }
-
-    .badge {
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 8px;
+    .deal-title{
+      font-size:18px;
+      font-weight:bold;
+      margin-bottom:8px;
     }
 
-    .cash {
-      background: #dbeafe;
-      color: #1e40af;
+    .row{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      border-bottom:1px solid #eef0f2;
+      padding:7px 0;
+      font-size:14px;
     }
 
-    .loan {
-      background: #fee2e2;
-      color: #991b1b;
+    .badge{
+      display:inline-block;
+      padding:5px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:bold;
+      margin-bottom:8px;
     }
 
-    .best-badge {
-      background: #31572c;
-      color: white;
+    .cash{
+      background:#dbeafe;
+      color:#1e40af;
     }
 
-    .note {
-      font-size: 12px;
-      color: #6b7280;
-      text-align: center;
-      margin-top: 18px;
+    .loan{
+      background:#fee2e2;
+      color:#991b1b;
+    }
+
+    .best-badge{
+      background:#31572c;
+      color:white;
+    }
+
+    .warning{
+      background:#fef3c7;
+      color:#92400e;
+    }
+
+    .loan-warning-box{
+      background:#fee2e2;
+      color:#991b1b;
+      padding:12px;
+      border-radius:12px;
+      margin-top:10px;
+      margin-bottom:12px;
+      font-size:14px;
+      font-weight:bold;
+      line-height:1.4;
+      border:1px solid #fecaca;
+    }
+
+    .required-box{
+      background:#fee2e2;
+      color:#991b1b;
+      padding:12px;
+      border-radius:12px;
+      margin-bottom:12px;
+      font-size:14px;
+      font-weight:bold;
+      display:none;
+    }
+
+    .note{
+      font-size:12px;
+      color:#6b7280;
+      text-align:center;
+      margin-top:18px;
     }
   </style>
 </head>
 
 <body>
-  <div class="app">
-    <div class="header">
-      <img src="logo.png" class="logo" alt="Hay Buy Helper Logo">
-      <h1>Hay Buy Helper</h1>
-      <p>Compare upfront hay purchase deals instantly</p>
-    </div>
 
-    <div class="card">
-      <label for="tons">Tonnage</label>
-      <input id="tons" type="number" value="5000" min="0" step="1" />
+<div class="app">
 
-      <label for="basePrice">Base Price Per Ton</label>
-      <input id="basePrice" type="number" value="200" min="0" step="1" />
-
-      <label class="checkbox-row">
-        <input id="tarpingCheck" type="checkbox" />
-        Add Tarping Cost
-      </label>
-
-      <div id="tarpingBox" style="display:none;">
-        <label for="tarpingCost">Tarping Cost</label>
-        <select id="tarpingCost">
-          <option value="4000">$4,000</option>
-          <option value="5000">$5,000</option>
-          <option value="6000">$6,000</option>
-          <option value="7000">$7,000</option>
-          <option value="8000">$8,000</option>
-          <option value="9000">$9,000</option>
-          <option value="10000">$10,000</option>
-        </select>
-      </div>
-
-      <label class="checkbox-row">
-        <input id="haulingCheck" type="checkbox" />
-        Add Hauling Cost
-      </label>
-
-      <div id="haulingBox" style="display:none;">
-        <label for="haulingRate">Hauling Cost Per Ton</label>
-        <select id="haulingRate">
-          <option value="4">$4 / ton</option>
-          <option value="5">$5 / ton</option>
-          <option value="6">$6 / ton</option>
-          <option value="7">$7 / ton</option>
-          <option value="8">$8 / ton</option>
-          <option value="9">$9 / ton</option>
-          <option value="10">$10 / ton</option>
-          <option value="11">$11 / ton</option>
-          <option value="12">$12 / ton</option>
-          <option value="13">$13 / ton</option>
-          <option value="14">$14 / ton</option>
-          <option value="15">$15 / ton</option>
-        </select>
-      </div>
-    </div>
-
-    <div id="bestSummary" class="card summary"></div>
-    <div id="topThreeSummary" class="card"></div>
-    <div id="deals"></div>
-
-    <div class="note">
-      Loan rule: deals above 50% upfront use 7% loan interest on the full contract amount for 12 months.
-      Tarping and hauling costs are added only when selected.
-    </div>
+  <div class="header">
+    <img src="logo.png" class="logo">
+    <h1>Hay Buy Helper</h1>
+    <p>Compare hay purchase deals instantly</p>
   </div>
 
-  <script>
-    const LOAN_RATE = 0.07;
+  <div class="card">
 
-    const deals = [
-      { name: "Base Price Deal", discount: 0, upfrontPercent: 0.20 },
-      { name: "$5 Off Deal / 40% UPFRONT", discount: 5, upfrontPercent: 0.40 },
-      { name: "$8 Off Deal / 50% UPFRONT", discount: 8, upfrontPercent: 0.50 },
-      { name: "$10 Off Deal / 60% UPFRONT", discount: 10, upfrontPercent: 0.60 },
-      { name: "$12 Off Deal / 70% UPFRONT", discount: 12, upfrontPercent: 0.70 },
-      { name: "$15 Off Deal / 80% UPFRONT", discount: 15, upfrontPercent: 0.80 },
-      { name: "$20 Off Deal / 90% UPFRONT", discount: 20, upfrontPercent: 0.90 }
-    ];
+        <input
+  id="userName"
+  type="text"
+  value="CASON"
+  style="display:none;"
+/>
 
-    const money = value =>
-      value.toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
+    <label for="bankBalance">
+      Beginning Bank Balance (Required)
+    </label>
 
-    function calculateDeal(tons, basePrice, deal, tarpingCost, haulingCost) {
-      const finalPricePerTon = basePrice - deal.discount;
-      const totalHayCost = tons * finalPricePerTon;
-      const upfrontMoney = totalHayCost * deal.upfrontPercent;
-      const balanceUponDelivery = totalHayCost - upfrontMoney;
-      const loanNeeded = deal.upfrontPercent > 0.50;
+    <input
+      id="bankBalance"
+      type="number"
+      value=""
+      min="0"
+      step="1000"
+      placeholder="Please put amount in order to continue"
+    />
 
-      const loanInterest = loanNeeded ? totalHayCost * LOAN_RATE : 0;
+    <div id="bankBalanceWarning" class="required-box">
+      ⚠️ BEGINNING BANK BALANCE REQUIRED.
+      PLEASE PUT AMOUNT IN ORDER TO CONTINUE.
+    </div>
 
-      const finalCostIncludingInterest = totalHayCost + loanInterest + tarpingCost + haulingCost;
-      const effectiveCostPerTon = tons > 0 ? finalCostIncludingInterest / tons : 0;
-      const savings = tons > 0 ? (tons * basePrice) - finalCostIncludingInterest : 0;
+    <label for="tons">Tonnage</label>
+    <input id="tons" type="number" value="5000">
 
-      return {
-        ...deal,
-        finalPricePerTon,
-        totalHayCost,
-        upfrontMoney,
-        balanceUponDelivery,
-        loanNeeded,
-        loanInterest,
+    <label for="basePrice">Base Price Per Ton</label>
+    <input id="basePrice" type="number" value="200">
+
+    <label class="checkbox-row">
+      <input id="tarpingCheck" type="checkbox">
+      Add Tarping Cost
+    </label>
+
+    <div id="tarpingBox" style="display:none;">
+      <label for="tarpingCost">Tarping Cost</label>
+
+      <select id="tarpingCost">
+        <option value="4000">$4,000</option>
+        <option value="5000">$5,000</option>
+        <option value="6000">$6,000</option>
+        <option value="7000">$7,000</option>
+        <option value="8000">$8,000</option>
+        <option value="9000">$9,000</option>
+        <option value="10000">$10,000</option>
+      </select>
+    </div>
+
+    <label class="checkbox-row">
+      <input id="haulingCheck" type="checkbox">
+      Add Hauling Cost
+    </label>
+
+    <div id="haulingBox" style="display:none;">
+      <label for="haulingRate">Hauling Cost Per Ton</label>
+
+      <select id="haulingRate">
+        <option value="4">$4 / ton</option>
+        <option value="5">$5 / ton</option>
+        <option value="6">$6 / ton</option>
+        <option value="7">$7 / ton</option>
+        <option value="8">$8 / ton</option>
+        <option value="9">$9 / ton</option>
+        <option value="10">$10 / ton</option>
+        <option value="11">$11 / ton</option>
+        <option value="12">$12 / ton</option>
+        <option value="13">$13 / ton</option>
+        <option value="14">$14 / ton</option>
+        <option value="15">$15 / ton</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div id="bestSummary" class="card summary"></div>
+
+  <div id="topThreeSummary" class="card"></div>
+
+  <div id="deals"></div>
+
+  <div class="note">
+    Loan applies if upfront is above 50% OR
+    bank balance falls below $250,000.
+  </div>
+
+</div>
+
+<script>
+
+const LOAN_RATE = 0.07;
+const MIN_BANK_BALANCE = 250000;
+
+const deals = [
+  { name:"Base Price Deal", discount:0, upfrontPercent:0.20 },
+  { name:"$5 Off Deal / 40% UPFRONT", discount:5, upfrontPercent:0.40 },
+  { name:"$8 Off Deal / 50% UPFRONT", discount:8, upfrontPercent:0.50 },
+  { name:"$10 Off Deal / 60% UPFRONT", discount:10, upfrontPercent:0.60 },
+  { name:"$12 Off Deal / 70% UPFRONT", discount:12, upfrontPercent:0.70 },
+  { name:"$15 Off Deal / 80% UPFRONT", discount:15, upfrontPercent:0.80 },
+  { name:"$20 Off Deal / 90% UPFRONT", discount:20, upfrontPercent:0.90 }
+];
+
+const money = value =>
+  value.toLocaleString("en-US",{
+    style:"currency",
+    currency:"USD",
+    minimumFractionDigits:2
+  });
+
+function calculateDeal(
+  tons,
+  basePrice,
+  deal,
+  tarpingCost,
+  haulingCost,
+  bankBalance
+){
+
+  const finalPricePerTon = basePrice - deal.discount;
+
+  const totalHayCost = tons * finalPricePerTon;
+
+  const upfrontMoney =
+    totalHayCost * deal.upfrontPercent;
+
+  const balanceUponDelivery =
+    totalHayCost - upfrontMoney;
+
+  const bankBalanceAfterUpfront =
+    bankBalance - upfrontMoney;
+
+  const loanNeededByDeal =
+    deal.upfrontPercent > 0.50;
+
+  const loanNeededByBank =
+    bankBalance < MIN_BANK_BALANCE ||
+    bankBalanceAfterUpfront < MIN_BANK_BALANCE;
+
+  const loanNeeded =
+    loanNeededByDeal || loanNeededByBank;
+
+  const loanInterest =
+    loanNeeded
+      ? totalHayCost * LOAN_RATE
+      : 0;
+
+  const finalCost =
+    totalHayCost +
+    loanInterest +
+    tarpingCost +
+    haulingCost;
+
+  const costPerTon =
+    finalCost / tons;
+
+  return {
+    ...deal,
+    totalHayCost,
+    upfrontMoney,
+    balanceUponDelivery,
+    bankBalanceAfterUpfront,
+    loanNeeded,
+    loanInterest,
+    tarpingCost,
+    haulingCost,
+    finalCost,
+    costPerTon
+  };
+}
+
+function render(){
+
+  const userName =
+    document.getElementById("userName").value || "You";
+
+  const bankBalanceInput =
+    document.getElementById("bankBalance").value;
+
+  const bankBalance =
+    Number(bankBalanceInput);
+
+  if(!bankBalanceInput || bankBalance <= 0){
+
+    document.getElementById(
+      "bankBalanceWarning"
+    ).style.display = "block";
+
+    document.getElementById(
+      "bestSummary"
+    ).innerHTML = "";
+
+    document.getElementById(
+      "topThreeSummary"
+    ).innerHTML = "";
+
+    document.getElementById(
+      "deals"
+    ).innerHTML = "";
+
+    return;
+  }
+
+  document.getElementById(
+    "bankBalanceWarning"
+  ).style.display = "none";
+
+  const tons =
+    Number(document.getElementById("tons").value);
+
+  const basePrice =
+    Number(document.getElementById("basePrice").value);
+
+  const tarpingSelected =
+    document.getElementById("tarpingCheck").checked;
+
+  const tarpingCost =
+    tarpingSelected
+      ? Number(document.getElementById("tarpingCost").value)
+      : 0;
+
+  const haulingSelected =
+    document.getElementById("haulingCheck").checked;
+
+  const haulingRate =
+    haulingSelected
+      ? Number(document.getElementById("haulingRate").value)
+      : 0;
+
+  const haulingCost =
+    tons * haulingRate;
+
+  document.getElementById("tarpingBox").style.display =
+    tarpingSelected ? "block" : "none";
+
+  document.getElementById("haulingBox").style.display =
+    haulingSelected ? "block" : "none";
+
+  const results =
+    deals.map(deal =>
+      calculateDeal(
+        tons,
+        basePrice,
+        deal,
         tarpingCost,
         haulingCost,
-        finalCostIncludingInterest,
-        effectiveCostPerTon,
-        savings
-      };
+        bankBalance
+      )
+    );
+
+  const sorted =
+    [...results].sort(
+      (a,b) => a.costPerTon - b.costPerTon
+    );
+
+  const bestDeal = sorted[0];
+
+  document.getElementById("bestSummary").innerHTML = `
+
+    <h2>Best Deal</h2>
+
+    <div class="deal-title">
+      ${bestDeal.name}
+    </div>
+
+    ${
+      bestDeal.loanNeeded
+      ? `
+        <div class="loan-warning-box">
+          ⚠️ ${userName},
+          YOU DON'T HAVE ENOUGH CASH AVAILABLE.
+          THIS DEAL REQUIRES A LOAN AND
+          WILL PUT YOU DEEP IN THE LINE.
+        </div>
+      `
+      : ""
     }
 
-    function render() {
-      const tons = Number(document.getElementById("tons").value) || 0;
-      const basePrice = Number(document.getElementById("basePrice").value) || 0;
+    <div class="row">
+      <span>Effective Cost / Ton</span>
+      <strong>${money(bestDeal.costPerTon)}</strong>
+    </div>
 
-      const tarpingSelected = document.getElementById("tarpingCheck").checked;
-      const tarpingCost = tarpingSelected ? Number(document.getElementById("tarpingCost").value) : 0;
+    <div class="row">
+      <span>Final Cost</span>
+      <strong>${money(bestDeal.finalCost)}</strong>
+    </div>
 
-      const haulingSelected = document.getElementById("haulingCheck").checked;
-      const haulingRate = haulingSelected ? Number(document.getElementById("haulingRate").value) : 0;
-      const haulingCost = tons * haulingRate;
+  `;
 
-      document.getElementById("tarpingBox").style.display = tarpingSelected ? "block" : "none";
-      document.getElementById("haulingBox").style.display = haulingSelected ? "block" : "none";
+  document.getElementById("topThreeSummary").innerHTML = `
 
-      const results = deals.map(deal =>
-        calculateDeal(tons, basePrice, deal, tarpingCost, haulingCost)
-      );
+    <h2>Top 3 Deals</h2>
 
-      const sorted = [...results].sort((a, b) => a.effectiveCostPerTon - b.effectiveCostPerTon);
-      const bestDeal = sorted[0];
+    ${
+      sorted.slice(0,3).map((deal,index)=>`
 
-      document.getElementById("bestSummary").innerHTML = `
-        <h2>Best Deal</h2>
-        <div class="deal-title">${bestDeal.name}</div>
-        <div class="row"><span>Best Effective Cost / Ton</span><strong>${money(bestDeal.effectiveCostPerTon)}</strong></div>
-        <div class="row"><span>Lowest Final Cost</span><strong>${money(bestDeal.finalCostIncludingInterest)}</strong></div>
-        <div class="row"><span>Cash Needed Upfront</span><strong>${money(bestDeal.upfrontMoney)}</strong></div>
-        <div class="row"><span>Tarping Cost</span><strong>${money(bestDeal.tarpingCost)}</strong></div>
-        <div class="row"><span>Hauling Cost</span><strong>${money(bestDeal.haulingCost)}</strong></div>
-        <div class="row"><span>Savings</span><strong>${money(bestDeal.savings)}</strong></div>
-      `;
+        <div class="row">
+          <span>#${index+1} ${deal.name}</span>
+          <strong>${money(deal.costPerTon)} / ton</strong>
+        </div>
 
-      const topThree = sorted.slice(0, 3);
-
-      document.getElementById("topThreeSummary").innerHTML = `
-        <h2>Top 3 Deals</h2>
-        ${topThree.map((deal, index) => `
-          <div class="row">
-            <span>#${index + 1} ${deal.name}</span>
-            <strong>${money(deal.effectiveCostPerTon)} / ton</strong>
-          </div>
-        `).join("")}
-      `;
-
-      document.getElementById("deals").innerHTML = sorted.map((deal, index) => {
-        const isBest = index === 0;
-
-        return `
-          <div class="card deal ${isBest ? "best" : ""}">
-            ${isBest ? '<span class="badge best-badge">BEST DEAL</span><br>' : ''}
-            <span class="badge ${deal.loanNeeded ? "loan" : "cash"}">
-              ${deal.loanNeeded ? "LOAN NEEDED" : "OWN CASH"}
-            </span>
-
-            <div class="deal-title">Rank #${index + 1} — ${deal.name}</div>
-
-            <div class="row"><span>Discount / Ton</span><strong>${money(deal.discount)}</strong></div>
-            <div class="row"><span>Upfront %</span><strong>${deal.upfrontPercent * 100}%</strong></div>
-            <div class="row"><span>Final Price / Ton</span><strong>${money(deal.finalPricePerTon)}</strong></div>
-            <div class="row"><span>Total Hay Cost</span><strong>${money(deal.totalHayCost)}</strong></div>
-            <div class="row"><span>Upfront Money Needed</span><strong>${money(deal.upfrontMoney)}</strong></div>
-            <div class="row"><span>Balance Upon Delivery</span><strong>${money(deal.balanceUponDelivery)}</strong></div>
-            <div class="row"><span>Loan Interest</span><strong>${money(deal.loanInterest)}</strong></div>
-            <div class="row"><span>Tarping Cost</span><strong>${money(deal.tarpingCost)}</strong></div>
-            <div class="row"><span>Hauling Cost</span><strong>${money(deal.haulingCost)}</strong></div>
-            <div class="row"><span>Final Cost Incl. Interest</span><strong>${money(deal.finalCostIncludingInterest)}</strong></div>
-            <div class="row"><span>Cost Per Ton</span><strong>${money(deal.effectiveCostPerTon)}</strong></div>
-            <div class="row"><span>Savings</span><strong>${money(deal.savings)}</strong></div>
-          </div>
-        `;
-      }).join("");
+      `).join("")
     }
 
-    document.getElementById("tons").addEventListener("input", render);
-    document.getElementById("basePrice").addEventListener("input", render);
-    document.getElementById("tarpingCheck").addEventListener("change", render);
-    document.getElementById("tarpingCost").addEventListener("change", render);
-    document.getElementById("haulingCheck").addEventListener("change", render);
-    document.getElementById("haulingRate").addEventListener("change", render);
+  `;
 
-    render();
-  </script>
+  document.getElementById("deals").innerHTML =
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./service-worker.js');
-    }
-  </script>
+    sorted.map((deal,index)=>`
+
+      <div class="card deal ${index===0 ? "best" : ""}">
+
+        ${
+          index===0
+          ? `<span class="badge best-badge">BEST DEAL</span><br>`
+          : ""
+        }
+
+        <span class="badge ${deal.loanNeeded ? "loan":"cash"}">
+          ${deal.loanNeeded ? "LOAN NEEDED":"OWN CASH"}
+        </span>
+
+        ${
+          deal.loanNeeded
+          ? `
+            <div class="loan-warning-box">
+              ⚠️ ${userName},
+              YOU DON'T HAVE ENOUGH CASH AVAILABLE.
+              THIS DEAL REQUIRES A LOAN AND
+              WILL PUT YOU DEEP IN THE LINE.
+            </div>
+          `
+          : ""
+        }
+
+        <div class="deal-title">
+          Rank #${index+1} — ${deal.name}
+        </div>
+
+        <div class="row">
+          <span>Total Hay Cost</span>
+          <strong>${money(deal.totalHayCost)}</strong>
+        </div>
+
+        <div class="row">
+          <span>Upfront Money</span>
+          <strong>${money(deal.upfrontMoney)}</strong>
+        </div>
+
+        <div class="row">
+          <span>Bank Balance After Upfront</span>
+          <strong>${money(deal.bankBalanceAfterUpfront)}</strong>
+        </div>
+
+        <div class="row">
+          <span>Loan Interest</span>
+          <strong>${money(deal.loanInterest)}</strong>
+        </div>
+
+        <div class="row">
+          <span>Tarping Cost</span>
+          <strong>${money(deal.tarpingCost)}</strong>
+        </div>
+
+        <div class="row">
+          <span>Hauling Cost</span>
+          <strong>${money(deal.haulingCost)}</strong>
+        </div>
+
+        <div class="row">
+          <span>Final Cost</span>
+          <strong>${money(deal.finalCost)}</strong>
+        </div>
+
+        <div class="row">
+          <span>Cost Per Ton</span>
+          <strong>${money(deal.costPerTon)}</strong>
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+document.getElementById("userName")
+  .addEventListener("input",render);
+
+document.getElementById("bankBalance")
+  .addEventListener("input",render);
+
+document.getElementById("tons")
+  .addEventListener("input",render);
+
+document.getElementById("basePrice")
+  .addEventListener("input",render);
+
+document.getElementById("tarpingCheck")
+  .addEventListener("change",render);
+
+document.getElementById("tarpingCost")
+  .addEventListener("change",render);
+
+document.getElementById("haulingCheck")
+  .addEventListener("change",render);
+
+document.getElementById("haulingRate")
+  .addEventListener("change",render);
+
+render();
+
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./service-worker.js');
+}
+</script>
+
 </body>
 </html>
